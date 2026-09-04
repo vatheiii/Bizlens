@@ -1,7 +1,7 @@
-import {DataTypes} from "sequqlize";
-import sequqlize from "../config/database.js";
+import {DataTypes} from "sequelize";
+import sequelize from "../config/database.js";
 
-const Product = sequqlize.define(
+const Product = sequelize.define(
     "Product",
     {
         product_id:{

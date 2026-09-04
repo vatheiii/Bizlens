@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
-const Sale = sequqlize.define(
+const Sale = sequelize.define(
     "Sale",
     {
         sale_id:{

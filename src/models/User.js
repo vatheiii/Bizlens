@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-import { combineTableNames } from "sequelize/lib/utils";
 
 const User=sequelize.define(
     "User",
@@ -38,9 +37,9 @@ const User=sequelize.define(
     },
     {
         tableName : "users",
-        timestamps: TransitionEvent,
+        timestamps: true,
         createdAt: "created_at",
-        updateAt: "updated_at",
+        updatedAt: "updated_at",
 
     }
 );

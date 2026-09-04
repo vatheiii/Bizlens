@@ -2,7 +2,7 @@ import express from "express";
 
 import {
     createProduct,
-    getProducts,
+    getProduct,
     getProductById,
     updateProduct,
     deleteProduct
@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post("/", authMiddleware, createProduct);
 
-router.get("/", authMiddleware, getProducts);
+router.get("/", authMiddleware, getProduct);
 
 router.get("/:id", authMiddleware, getProductById);
 

@@ -1,7 +1,7 @@
 import {DataTypes} from "sequelize";
 import sequelize from "../config/database.js";
 
-const Business = sequqlize.define(
+const Business = sequelize.define(
     "Business",
     {
         business_id:{

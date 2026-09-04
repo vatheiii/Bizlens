@@ -1,6 +1,6 @@
 import {
     getSalesAnalytics
-} from "./salesAnalytics.js";
+} from "./saleAnalytics.js";
 
 import {
     getProfitAnalytics

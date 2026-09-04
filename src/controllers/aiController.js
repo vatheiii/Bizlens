@@ -6,7 +6,7 @@ import {
 
 import {
     saveInsights
-} from "../services/ai/insightService.js";
+} from "../services/ai/insightSrvice.js";
 
 
 // ============================================================

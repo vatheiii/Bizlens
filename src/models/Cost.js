@@ -22,7 +22,7 @@ const Cost=sequelize.define(
             allowNull: true,
         },
         amount:{
-            type:DataTypes.DECIMALO(10,2),
+            type:DataTypes.DECIMAL(10,2),
             allowNull: false,
             validate:{
                 min:0,

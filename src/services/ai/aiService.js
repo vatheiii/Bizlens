@@ -4,15 +4,15 @@ import {
 
 import {
     analyzeProfit
-} from "./rules/profitRules.js";
+} from "./rule/profitRules.js";
 
 import {
     analyzeCosts
-} from "./rules/costRules.js";
+} from "./rule/costRules.js";
 
 import {
     analyzeSales
-} from "./rules/salesRules.js";
+} from "./rule/salesRules.js";
 
 
 export const generateBusinessInsights = async (
