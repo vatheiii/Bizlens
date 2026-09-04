@@ -6,10 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 8080,
-    // Uncomment and point this at your Express/Sequelize backend
-    // so client calls to /api/* are forwarded during development.
-    // proxy: {
-    //   "/api": "http://localhost:5000",
-    // },
+    proxy: {
+      "/api": "http://localhost:5000",
+    },
   },
 });

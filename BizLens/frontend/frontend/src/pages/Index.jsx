@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { login, register } from "../services/authApi.js";
 
 function EyeOffIcon() {
   return (
@@ -12,6 +13,37 @@ function EyeOffIcon() {
 function AuthScreen({ mode, onSwitch }) {
   const navigate = useNavigate();
   const isLogin = mode === "login";
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const response = isLogin
+        ? await login({ email: formData.email, password: formData.password })
+        : await register(formData);
+
+      if (response.token) {
+        localStorage.setItem("bizlens_token", response.token);
+      }
+      if (response.user) {
+        localStorage.setItem("bizlens_user", JSON.stringify(response.user));
+      }
+      navigate(isLogin ? "/dashboard" : "/setup");
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="auth-content">
@@ -29,28 +61,53 @@ function AuthScreen({ mode, onSwitch }) {
       </div>
       <form
         className="auth-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          if (!isLogin) navigate("/setup");
-        }}
+        onSubmit={handleSubmit}
       >
         {!isLogin && (
           <label>
             Full Name
-            <input type="text" placeholder="Example Jame" />
+            <input
+              name="full_name"
+              type="text"
+              placeholder="Example Jame"
+              value={formData.full_name}
+              onChange={(event) =>
+                setFormData({ ...formData, full_name: event.target.value })
+              }
+              required
+            />
           </label>
         )}
         <label>
           Email
-          <input type="email" placeholder="example@gmail.com" />
+          <input
+            name="email"
+            type="email"
+            placeholder="example@gmail.com"
+            value={formData.email}
+            onChange={(event) =>
+              setFormData({ ...formData, email: event.target.value })
+            }
+            required
+          />
         </label>
         <label>
           Password
           <div className="password-wrap">
-            <input type="password" placeholder="Enter your Password" />
+            <input
+              name="password"
+              type="password"
+              placeholder="Enter your Password"
+              value={formData.password}
+              onChange={(event) =>
+                setFormData({ ...formData, password: event.target.value })
+              }
+              required
+            />
             <EyeOffIcon />
           </div>
         </label>
+        {error && <p role="alert">{error}</p>}
         {isLogin && (
           <button type="button" className="forgot-link">
             Forgot Password?
@@ -60,7 +117,7 @@ function AuthScreen({ mode, onSwitch }) {
           type="submit"
           className={isLogin ? "auth-primary login-submit" : "auth-primary"}
         >
-          {isLogin ? "Login" : "Sign Up"}
+          {isSubmitting ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
         </button>
       </form>
       {!isLogin && (
